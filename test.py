@@ -21,5 +21,12 @@ class TestCase(unittest.TestCase):
   def test_decode(self):
     self.assertEqual(netstring.decode(self.binary_data), self.ascii_data)
 
+  def test_bad_input(self):
+    clbk1 = lambda: netstring.decode(b'-' + self.binary_data)
+    clbk2 = lambda: netstring.decode(self.binary_data.replace(b',', b'.'))
+
+    self.assertRaises(ValueError, clbk1)
+    self.assertRaises(ValueError, clbk2)
+
 if __name__ == '__main__':
   unittest.main()
