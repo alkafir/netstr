@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from distutils.core import setup
+import netstring
 
 setup(
   name='netstring',
@@ -8,6 +9,6 @@ setup(
   author='Alfredo Mungo',
   author_email='alfredo.mungo@openmailbox.org',
   url='https://github.com/alkafir/netstring',
-  version='0.1',
+  version=netstring.__version__,
   py_modules=('netstring',)
 )

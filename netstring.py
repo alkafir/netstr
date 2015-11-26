@@ -22,6 +22,8 @@
     Netstrings specification: http://cr.yp.to/proto/netstrings.txt
 """
 
+__version__ = '0.1.1'
+
 if __name__ == '__main__':
   import sys
   sys.exit('This is a Python module and not intended to be run as a standalone application')
