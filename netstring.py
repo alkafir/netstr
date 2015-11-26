@@ -53,7 +53,7 @@ def size(b):
     WARNING: This function doesn't check for netstring validity.
 
     THROWS:
-      ValueError if something goes wrong
+      ValueError if cannot determine size
   """
   try:
     slen = b[:b.find(b':')].decode('ascii')
@@ -65,8 +65,6 @@ def size(b):
 def length(b):
   """
     Returns the length of the first netstring in the provided bytes object without decoding it.
-
-    THROWS:
-      ValueError
+    WARNING: This function doesn't check for netstring validity.
   """
   return int(b[:b.find(b':')].decode('ascii'))
