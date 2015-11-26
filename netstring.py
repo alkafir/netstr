@@ -26,8 +26,6 @@ if __name__ == '__main__':
   import sys
   sys.exit('This is a Python module and not intended to be run as a standalone application')
 
-_ASCII_COLON, _ASCII_COMMA = ':,'.encode('ascii')
-
 def encode(s):
   """
     Encodes a string to a netstring, returning the corresponding bytes object.
@@ -41,13 +39,13 @@ def decode(b):
     THROWS:
       ValueError if the provided bytes object does not begin with a valid netstring
   """
-    slen, s = b.split(_ASCII_COLON, 1)
-    slen = int(slen)
+  slen, s = b.split(b':', 1)
+  slen = int(slen)
 
-    if slen < 0 or s[slen] != _ASCII_COMMA:
-      raise ValueError
+  if slen < 0 or s[slen] != b','[0]:
+    raise ValueError
 
-    return s[1:1+slen].decode('ascii')
+  return s[:slen].decode('ascii')
 
 def size(b):
   """
@@ -57,9 +55,18 @@ def size(b):
     THROWS:
       ValueError if something goes wrong
   """
-    try:
-      slen = b[:b.find(_ASCII_COLON)].decode('ascii')
+  try:
+    slen = b[:b.find(b':')].decode('ascii')
 
-      return 2 + len(slen) + int(slen)
-    except:
-      raise ValueError
+    return 2 + len(slen) + int(slen)
+  except:
+    raise ValueError
+
+def length(b):
+  """
+    Returns the length of the first netstring in the provided bytes object without decoding it.
+
+    THROWS:
+      ValueError
+  """
+  return int(b[:b.find(b':')].decode('ascii'))
