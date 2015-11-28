@@ -28,5 +28,11 @@ class TestCase(unittest.TestCase):
     self.assertRaises(ValueError, clbk1)
     self.assertRaises(ValueError, clbk2)
 
+  def test_validity(self):
+    clbk = lambda: self.binary_data.replace(b',', b'.')
+
+    self.assertEqual(netstring.is_valid(self.binary_data), True)
+    self.assertEqual(netstring.is_valid(clbk()), False)
+
 if __name__ == '__main__':
   unittest.main()
