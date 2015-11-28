@@ -11,4 +11,13 @@ setup(
   url='https://github.com/alkafir/netstring',
   version=netstring.__version__,
   py_modules=('netstring',)
+  license='GPLv3+',
+  classifiers=(
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 3.5',
+    'Topic :: Software Development :: Libraries :: Python Modules'
+  )
 )
