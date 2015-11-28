@@ -22,41 +22,41 @@
     Netstrings specification: http://cr.yp.to/proto/netstrings.txt
 """
 
-__version__ = '0.2.0'
+__version__ = '1.0.0'
 
 if __name__ == '__main__':
   import sys
   sys.exit('This is a Python module and not intended to be run as a standalone application')
 
-def encode(s):
+def encode(data):
   """
-    Encodes a string to a netstring, returning the corresponding bytes object.
+    Encodes a bytes object into a netstring and returns the result as another bytes object.
   """
-  return (str(len(s)) + ':' + s + ',').encode('ascii')
+  return (str(len(data)).encode('ascii') + b':' + data + b',')
 
 def decode(b):
   """
-    Decodes the first netstring in the provided bytes object, returning the corresponding string object.
+    Decodes the first netstring in the provided bytes object, returning the contained data as another bytes object.
     
     THROWS:
       ValueError if the provided bytes object does not begin with a valid netstring
   """
   slen, s = _decode(b)
 
-  return s[:slen].decode('ascii')
+  return s[:slen]
 
 def _decode(b):
   """
     Internal decode function (see decode()).
 
     RETURN VALUE:
-      A tuple (slen: int, s: string) where slen is the length of the string in bytes and s is the initial buffer with length and colon removed.
+      A tuple (slen: int, s: bytes) where slen is the length of the data in bytes and s is the initial buffer with length and colon removed.
 
     THROWS:
       ValueError if the provided bytes object does not begin with a valid netstring
   """
   slen, s = b.split(b':', 1)
-  slen = int(slen)
+  slen = int(slen.decode('ascii'))
 
   if slen < 0 or s[slen] != b','[0]:
     raise ValueError
@@ -83,7 +83,10 @@ def length(b):
     Returns the length of the first netstring in the provided bytes object without decoding it.
     WARNING: This function doesn't check for netstring validity.
   """
-  return int(b[:b.find(b':')].decode('ascii'))
+  try:
+    return int(b[:b.find(b':')].decode('ascii'))
+  except:
+    raise ValueError
 
 def is_valid(b):
   """

@@ -7,7 +7,7 @@ class TestCase(unittest.TestCase):
   def setUp(self):
     self.junk = b'junkdata' * 10
     self.binary_data = b'12:\x68\x65\x6c\x6c\x6f\x20\x77\x6f\x72\x6c\x64\x21,' + self.junk
-    self.ascii_data = 'hello world!'
+    self.ascii_data = b'hello world!'
 
   def test_length(self):
     self.assertEqual(netstring.length(self.binary_data), len(self.ascii_data))
