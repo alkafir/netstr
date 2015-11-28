@@ -22,7 +22,7 @@
     Netstrings specification: http://cr.yp.to/proto/netstrings.txt
 """
 
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 
 if __name__ == '__main__':
   import sys
@@ -41,13 +41,27 @@ def decode(b):
     THROWS:
       ValueError if the provided bytes object does not begin with a valid netstring
   """
+  slen, s = _decode(b)
+
+  return s[:slen].decode('ascii')
+
+def _decode(b):
+  """
+    Internal decode function (see decode()).
+
+    RETURN VALUE:
+      A tuple (slen: int, s: string) where slen is the length of the string in bytes and s is the initial buffer with length and colon removed.
+
+    THROWS:
+      ValueError if the provided bytes object does not begin with a valid netstring
+  """
   slen, s = b.split(b':', 1)
   slen = int(slen)
 
   if slen < 0 or s[slen] != b','[0]:
     raise ValueError
 
-  return s[:slen].decode('ascii')
+  return (slen, s)
 
 def size(b):
   """
@@ -70,3 +84,17 @@ def length(b):
     WARNING: This function doesn't check for netstring validity.
   """
   return int(b[:b.find(b':')].decode('ascii'))
+
+def is_valid(b):
+  """
+    Checks the validity of the nestring at the beginning of the given bytes object.
+
+    RETURNS:
+      True if the given buffer objects starts with a valid nestring, False if not.
+  """
+  try:
+    slen, s = _decode(b)
+  except:
+    return False
+
+  return True
