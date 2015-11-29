@@ -1,4 +1,4 @@
-# Netstring
+# netstr
 
 Netstrings module for Python 3
 
@@ -12,4 +12,4 @@ This program is free software and distributed under the GNU Public License versi
 
 ## Bugs
 
-Please submit any bugs you find through the issue tracker you can find at https://github.com/alkafir/netstring/issues
+Please submit any bugs you find through the issue tracker you can find at https://github.com/alkafir/netstr/issues
