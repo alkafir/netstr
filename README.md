@@ -8,7 +8,7 @@ The netstrings specification can be found at http://cr.yp.to/proto/netstrings.tx
 
 ## License
 
-This program is free software and distributed under the GNU Public License version 3 (GPL v3).
+This program is free software and distributed under the GNU General Public License version 3 (GPL v3).
 
 ## Bugs
 
